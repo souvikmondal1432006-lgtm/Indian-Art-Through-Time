@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, MapPin, Calendar, Layers, Palette, Volume2, Square, Sparkles, BookOpen, Landmark } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, MapPin, Calendar, Palette, Sparkles, BookOpen, Landmark } from 'lucide-react'
 import { Artifact } from '../types'
 import { periodById } from '../data/periods'
 import ImageWithFallback from './ImageWithFallback'
-import { sounds } from '../utils/audioChimes'
-import { narrator } from '../utils/narrator'
 
 interface Props {
   artifact: Artifact
@@ -15,24 +13,20 @@ interface Props {
 
 export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Props) {
   const [zoomed, setZoomed] = useState(false)
-  const [playingAudio, setPlayingAudio] = useState(false)
   const [activeTab, setActiveTab] = useState<'history' | 'material' | 'significance' | 'legacy'>('history')
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const period = periodById(artifact.periodId)
 
   useEffect(() => {
-    sounds.playTempleBell(528)
     closeButtonRef.current?.focus()
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        zoomed ? setZoomed(false) : handleClose()
+        zoomed ? setZoomed(false) : onClose()
       }
       if (e.key === 'ArrowLeft') {
-        sounds.playScrollClick()
         onPrev()
       }
       if (e.key === 'ArrowRight') {
-        sounds.playScrollClick()
         onNext()
       }
     }
@@ -41,37 +35,12 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
-      narrator.stop()
     }
   }, [onClose, onPrev, onNext, zoomed])
 
   useEffect(() => {
     setZoomed(false)
-    narrator.stop()
-    setPlayingAudio(false)
   }, [artifact.id])
-
-  const handleClose = () => {
-    narrator.stop()
-    sounds.playScrollClick()
-    onClose()
-  }
-
-  const toggleNarration = () => {
-    if (playingAudio) {
-      narrator.stop()
-      setPlayingAudio(false)
-    } else {
-      const narrative = `${artifact.name}. Created during the ${period?.name} era, approximately ${artifact.dateRange}. ${artifact.historicalContext} Concerning its cultural significance: ${artifact.culturalSignificance} On its visual and material techniques: ${artifact.visualCharacteristics} Why this work matters: ${artifact.importance}`
-
-      narrator.speak(
-        narrative,
-        () => setPlayingAudio(true),
-        () => setPlayingAudio(false),
-        () => setPlayingAudio(false)
-      )
-    }
-  }
 
   return (
     <div
@@ -80,10 +49,10 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
       aria-modal="true"
       aria-labelledby="artifact-modal-title"
       onClick={(e) => {
-        if (e.target === e.currentTarget) handleClose()
+        if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="animate-modal-in bg-[#FCFAF6] w-full md:max-w-5xl md:rounded-xl shadow-[0_25px_70px_rgba(0,0,0,0.6)] min-h-screen md:min-h-0 relative border border-gold/40 overflow-hidden flex flex-col">
+      <div className="bg-[#FCFAF6] w-full md:max-w-5xl md:rounded-xl shadow-2xl min-h-screen md:min-h-0 relative border border-gold/40 overflow-hidden flex flex-col">
         {/* Top Ornate Header Bar */}
         <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-3.5 bg-gradient-to-r from-[#211B17] via-[#2F2620] to-[#211B17] text-[#FDF8EE] border-b border-gold/40">
           <div className="flex items-center gap-3">
@@ -101,10 +70,7 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
             {/* Previous / Next Arrow Controls */}
             <div className="flex items-center bg-black/40 rounded-full p-0.5 border border-gold/30">
               <button
-                onClick={() => {
-                  sounds.playScrollClick()
-                  onPrev()
-                }}
+                onClick={onPrev}
                 aria-label="Previous artifact"
                 className="p-1.5 rounded-full hover:bg-gold/20 text-parchment hover:text-gold transition-colors"
                 title="Previous Artifact (Left Arrow)"
@@ -112,10 +78,7 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
-                onClick={() => {
-                  sounds.playScrollClick()
-                  onNext()
-                }}
+                onClick={onNext}
                 aria-label="Next artifact"
                 className="p-1.5 rounded-full hover:bg-gold/20 text-parchment hover:text-gold transition-colors"
                 title="Next Artifact (Right Arrow)"
@@ -127,7 +90,7 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
             {/* Close Button */}
             <button
               ref={closeButtonRef}
-              onClick={handleClose}
+              onClick={onClose}
               aria-label="Close"
               className="p-2 rounded-full hover:bg-white/10 text-parchment/80 hover:text-white transition-colors ml-1"
             >
@@ -169,46 +132,9 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
             </div>
           </div>
 
-          {/* Right Column: Curatorial Dossier & Audio Guide */}
+          {/* Right Column: Curatorial Dossier */}
           <div className="md:col-span-6 p-6 md:p-8 flex flex-col justify-between overflow-y-auto max-h-[85vh] md:max-h-[calc(100vh-140px)] bg-[#FCFAF6]">
             <div>
-              {/* Audio Docent Player Card */}
-              <div className="mb-5 p-3.5 rounded-lg bg-gradient-to-r from-[#F4EEE2] to-[#EAE0CD] border border-gold/40 flex items-center justify-between shadow-sm">
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={toggleNarration}
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                      playingAudio
-                        ? 'bg-amber-600 text-white shadow-lg animate-pulse'
-                        : 'bg-terracotta text-white hover:bg-terracotta-dark shadow-md'
-                    }`}
-                    title={playingAudio ? 'Stop Audio Tour' : 'Listen to Human Voice Narration'}
-                  >
-                    {playingAudio ? <Square className="w-4 h-4 fill-white" /> : <Volume2 className="w-5 h-5" />}
-                  </button>
-
-                  <div>
-                    <div className="font-display font-semibold text-xs text-charcoal flex items-center gap-1.5">
-                      <span>{playingAudio ? 'Playing Curatorial Audio Guide...' : 'Listen to Curatorial Tour'}</span>
-                      {playingAudio && (
-                        <span className="inline-flex gap-0.5 items-end h-3">
-                          <span className="w-1 bg-amber-600 animate-[pulse_0.6s_ease-in-out_infinite] h-full" />
-                          <span className="w-1 bg-amber-600 animate-[pulse_0.4s_ease-in-out_infinite] h-2/3" />
-                          <span className="w-1 bg-amber-600 animate-[pulse_0.8s_ease-in-out_infinite] h-full" />
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-[11px] text-charcoal-soft/70 font-body">
-                      Natural voice · Docent pacing
-                    </div>
-                  </div>
-                </div>
-
-                <span className="text-[10px] font-display text-gold/90 bg-charcoal/90 px-2 py-0.5 rounded border border-gold/30">
-                  Audio Tour
-                </span>
-              </div>
-
               {/* Title & Date */}
               <h2
                 id="artifact-modal-title"
@@ -264,10 +190,7 @@ export default function ArtifactModal({ artifact, onClose, onPrev, onNext }: Pro
                 ].map((tab) => (
                   <button
                     key={tab.id}
-                    onClick={() => {
-                      sounds.playScrollClick()
-                      setActiveTab(tab.id as any)
-                    }}
+                    onClick={() => setActiveTab(tab.id as any)}
                     className={`px-3 py-1.5 rounded-t transition-colors whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'border-b-2 border-terracotta text-terracotta font-semibold bg-terracotta/5'

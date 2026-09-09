@@ -9,9 +9,6 @@ import Footer from './components/Footer'
 import { artifacts } from './data/artifacts'
 import { periods } from './data/periods'
 import { Artifact } from './types'
-import { Volume2, VolumeX } from 'lucide-react'
-import { sounds } from './utils/audioChimes'
-
 const initialFilters: FilterState = {
   query: '',
   periodId: null,
@@ -20,16 +17,8 @@ const initialFilters: FilterState = {
 }
 
 export default function App() {
-  const [soundActive, setSoundActive] = useState<boolean>(true)
   const [filters, setFilters] = useState<FilterState>(initialFilters)
   const [openArtifactId, setOpenArtifactId] = useState<string | null>(null)
-
-  const toggleSound = () => {
-    const next = !soundActive
-    setSoundActive(next)
-    sounds.enabled = next
-    if (next) sounds.playTempleBell(528)
-  }
 
   const handleSelectEra = (id: string | null) => {
     setFilters((f) => {
@@ -106,18 +95,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F7F2E9] relative selection:bg-terracotta/30 text-charcoal">
-      {/* Floating Audio Control Button with Glassmorphism */}
-      <button
-        onClick={toggleSound}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-charcoal/90 text-gold-light border border-gold/40 shadow-xl backdrop-blur-md hover:bg-charcoal transition-all"
-        title={soundActive ? 'Mute Temple Chimes' : 'Enable Authentic Chimes'}
-      >
-        {soundActive ? <Volume2 className="w-4 h-4 text-gold" /> : <VolumeX className="w-4 h-4 text-parchment/60" />}
-        <span className="text-xs font-display hidden sm:inline">
-          {soundActive ? 'Temple Chimes ON' : 'Chimes Muted'}
-        </span>
-      </button>
-
       <Hero onExplore={scrollToTimeline} />
       <StatsSection />
       <FilterControls

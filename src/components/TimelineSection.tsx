@@ -2,7 +2,6 @@ import { Artifact, Period } from '../types'
 import ArtifactCard from './ArtifactCard'
 import DidYouKnow from './DidYouKnow'
 import { Sparkles, Compass } from 'lucide-react'
-import { sounds } from '../utils/audioChimes'
 
 interface Props {
   periods: Period[]
@@ -21,8 +20,7 @@ export default function TimelineSection({
 }: Props) {
   const visiblePeriods = periods.filter((p) => (artifactsByPeriod.get(p.id) ?? []).length > 0)
 
-  const handleEraClick = (id: string, index: number) => {
-    sounds.playTempleBell(440 + index * 45)
+  const handleEraClick = (id: string) => {
     if (activePeriodId === id) {
       onSelectEra(null)
     } else {
@@ -56,7 +54,7 @@ export default function TimelineSection({
             return (
               <button
                 key={p.id}
-                onClick={() => handleEraClick(p.id, idx)}
+                onClick={() => handleEraClick(p.id)}
                 className={`flex flex-col items-center shrink-0 px-3 py-1.5 rounded transition-all duration-200 group ${
                   isActive ? 'bg-terracotta/10 shadow-sm' : 'hover:bg-gold/10'
                 }`}

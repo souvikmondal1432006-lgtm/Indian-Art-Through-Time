@@ -1,5 +1,4 @@
 import { ArrowDown, Sparkles } from 'lucide-react'
-import { sounds } from '../utils/audioChimes'
 
 interface Props {
   onExplore: () => void
@@ -45,10 +44,7 @@ export default function Hero({ onExplore }: Props) {
 
         <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
           <button
-            onClick={() => {
-              sounds.playTempleBell(528)
-              onExplore()
-            }}
+            onClick={onExplore}
             className="group inline-flex items-center gap-2.5 bg-terracotta hover:bg-terracotta-dark text-parchment-light font-body font-medium text-base px-7 py-3.5 rounded-sm shadow-md hover:shadow-xl transition-all duration-200"
           >
             Explore Masterworks

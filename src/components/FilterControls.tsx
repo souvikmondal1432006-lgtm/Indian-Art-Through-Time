@@ -2,7 +2,6 @@ import { Search, X, RotateCcw, Sparkles } from 'lucide-react'
 import { ArtForm, Region } from '../types'
 import { periods } from '../data/periods'
 import { artifacts } from '../data/artifacts'
-import { sounds } from '../utils/audioChimes'
 
 const artForms: ArtForm[] = [
   'Painting',
@@ -49,10 +48,7 @@ function Chip({
 }) {
   return (
     <button
-      onClick={() => {
-        sounds.playScrollClick()
-        onClick()
-      }}
+      onClick={onClick}
       className={`px-3 py-1.5 rounded-full text-xs font-display border transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
         active
           ? 'bg-terracotta text-parchment-light border-terracotta shadow-md scale-105 font-medium'
@@ -77,7 +73,6 @@ export default function FilterControls({ filters, onChange, resultCount }: Props
   const hasActiveFilters = Boolean(filters.query || filters.periodId || filters.region || filters.artForm)
 
   const clearAll = () => {
-    sounds.playTempleBell(440)
     onChange({ query: '', periodId: null, region: null, artForm: null })
   }
 
