@@ -158,90 +158,126 @@ export default function HorizontalTimeline({
 
       {/* Visual Chronology Rail: ●──────────────●──────────────●──────────────● */}
       <div className="pt-3 pb-3 overflow-x-auto timeline-rail relative">
-        <div className="relative flex items-center min-w-[960px] justify-between px-6 py-2">
-          {/* Continuous Chronological Wire */}
-          <div className="absolute left-10 right-10 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-charcoal/30 via-gold/60 to-charcoal/30 pointer-events-none" />
+        <div className="relative min-w-[960px] px-8 py-2">
+          {/* Continuous Chronological Wire — Aligned precisely across the centers of the circle nodes */}
+          <div className="absolute left-14 right-14 top-[18px] h-[2px] bg-gradient-to-r from-charcoal/30 via-gold/60 to-charcoal/30 pointer-events-none z-0" />
 
-          {/* Option: View All Eras */}
-          <button
-            onClick={() => onSelectEra(null)}
-            className={`relative z-10 flex flex-col items-center group focus:outline-none transition-all duration-200 ${
-              activePeriodId === null ? 'scale-105' : 'hover:scale-105'
-            }`}
-            title="View entire chronological collection across all eras"
-          >
-            <div
-              className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                activePeriodId === null
-                  ? 'bg-charcoal border-charcoal ring-4 ring-charcoal/20 shadow-md'
-                  : 'bg-[#FCFAF7] border-[#8C7E6F] group-hover:border-gold'
+          {/* Milestone Nodes Row */}
+          <div className="relative z-10 flex items-start justify-between">
+            {/* Option: View All Eras */}
+            <button
+              onClick={() => onSelectEra(null)}
+              className={`flex flex-col items-center group focus:outline-none transition-all duration-200 ${
+                activePeriodId === null ? 'scale-105' : 'hover:scale-105'
               }`}
-            />
-            <span
-              className={`mt-1.5 font-display text-xs whitespace-nowrap tracking-wider uppercase transition-colors ${
-                activePeriodId === null ? 'text-charcoal font-semibold' : 'text-charcoal-muted group-hover:text-charcoal'
-              }`}
+              style={{ width: '92px' }}
+              title="View entire chronological collection across all eras"
             >
-              All Eras
-            </span>
-            <span className="text-[10px] text-charcoal-muted font-body">
-              30,000 BCE–Now
-            </span>
-            {activePeriodId === null && (
-              <div className="w-0.5 h-2 bg-charcoal mt-1" />
-            )}
-          </button>
-
-          {/* 8 Historical Eras */}
-          {periods.map((p, idx) => {
-            const isActive = activePeriodId === p.id
-            const periodArtifactCount = artifacts.filter((a) => a.periodId === p.id).length
-
-            return (
-              <button
-                key={p.id}
-                onClick={() => onSelectEra(isActive ? null : p.id)}
-                className={`relative z-10 flex flex-col items-center group focus:outline-none transition-all duration-200 ${
-                  isActive ? 'scale-110' : 'hover:scale-105'
-                }`}
-                title={`${p.name} (${p.dateRange}) · Click to filter exhibition to this epoch`}
-              >
-                {/* Milestone Node: Large terracotta circle when active */}
+              {/* Circle Anchor (Height 20px, center at 10px) */}
+              <div className="h-5 flex items-center justify-center">
                 <div
-                  className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
-                    isActive
-                      ? 'bg-terracotta border-[#FAF6EF] ring-4 ring-terracotta/30 shadow-md scale-110'
-                      : 'bg-[#FCFAF7] border-[#8C7E6F] group-hover:border-terracotta group-hover:bg-terracotta/10'
+                  className={`rounded-full border-2 transition-all duration-300 ${
+                    activePeriodId === null
+                      ? 'w-5 h-5 bg-charcoal border-[#FAF6EF] ring-4 ring-charcoal/25 shadow-md'
+                      : 'w-3.5 h-3.5 bg-[#FCFAF7] border-[#8C7E6F] group-hover:border-gold'
                   }`}
                 />
+              </div>
 
-                {/* Title */}
-                <span
-                  className={`mt-1.5 font-display text-xs whitespace-nowrap tracking-wider uppercase transition-colors ${
-                    isActive ? 'text-terracotta font-bold' : 'text-charcoal-soft group-hover:text-charcoal'
+              {/* Active Indicator tick */}
+              <div className="h-2 flex items-center justify-center">
+                {activePeriodId === null && <div className="w-0.5 h-2 bg-charcoal" />}
+              </div>
+
+              {/* Title — Cleanly below the wire */}
+              <span
+                className={`font-display text-xs whitespace-nowrap tracking-wider uppercase transition-colors ${
+                  activePeriodId === null ? 'text-charcoal font-bold' : 'text-charcoal-muted group-hover:text-charcoal'
+                }`}
+              >
+                All Eras
+              </span>
+
+              {/* Date subtitle */}
+              <span className="text-[10px] text-charcoal-muted font-body mt-0.5 whitespace-nowrap">
+                30,000 BCE–Now
+              </span>
+            </button>
+
+            {/* 8 Historical Eras */}
+            {periods.map((p) => {
+              const isActive = activePeriodId === p.id
+              const periodArtifactCount = artifacts.filter((a) => a.periodId === p.id).length
+
+              const compactDate =
+                p.id === 'prehistoric'
+                  ? '30,000 BCE'
+                  : p.id === 'mauryan'
+                  ? '3rd c. BCE'
+                  : p.id === 'classical'
+                  ? '200 BCE'
+                  : p.id === 'medieval'
+                  ? '800 CE'
+                  : p.id === 'mughal'
+                  ? '1526 CE'
+                  : p.id === 'regional'
+                  ? 'Living Arts'
+                  : p.id === 'colonial'
+                  ? '1757 CE'
+                  : p.id === 'contemporary'
+                  ? '1947–Now'
+                  : ''
+
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => onSelectEra(isActive ? null : p.id)}
+                  className={`flex flex-col items-center group focus:outline-none transition-all duration-200 ${
+                    isActive ? 'scale-105' : 'hover:scale-105'
                   }`}
+                  style={{ width: '100px' }}
+                  title={`${p.name} (${p.dateRange}) · Click to filter exhibition to this epoch`}
                 >
-                  {p.shortLabel}
-                </span>
+                  {/* Circle Anchor (Height 20px, center at 10px) */}
+                  <div className="h-5 flex items-center justify-center">
+                    <div
+                      className={`rounded-full border-2 transition-all duration-300 ${
+                        isActive
+                          ? 'w-5 h-5 bg-terracotta border-[#FAF6EF] ring-4 ring-terracotta/30 shadow-md scale-105'
+                          : 'w-3.5 h-3.5 bg-[#FCFAF7] border-[#8C7E6F] group-hover:border-terracotta group-hover:bg-terracotta/10'
+                      }`}
+                    />
+                  </div>
 
-                {/* Date range subtitle */}
-                <span className="text-[10px] text-charcoal-muted font-body">
-                  {p.dateRange.split('–')[0].replace('c. ', '')}
-                </span>
+                  {/* Active Indicator tick */}
+                  <div className="h-2 flex items-center justify-center">
+                    {isActive && <div className="w-0.5 h-2 bg-terracotta animate-pulse" />}
+                  </div>
 
-                {/* Small indicator when active */}
-                {isActive ? (
-                  <div className="w-0.5 h-2 bg-terracotta mt-1 animate-pulse" />
-                ) : (
-                  periodArtifactCount > 0 && (
-                    <span className="text-[9px] px-1.5 py-0.2 bg-[#EDE4D5] rounded-full text-charcoal-soft mt-0.5 opacity-80 group-hover:opacity-100">
+                  {/* Title */}
+                  <span
+                    className={`font-display text-xs whitespace-nowrap tracking-wider uppercase transition-colors ${
+                      isActive ? 'text-terracotta font-bold' : 'text-charcoal-soft group-hover:text-charcoal'
+                    }`}
+                  >
+                    {p.shortLabel}
+                  </span>
+
+                  {/* Date range subtitle */}
+                  <span className="text-[10px] text-charcoal-muted font-body mt-0.5 whitespace-nowrap">
+                    {compactDate}
+                  </span>
+
+                  {/* Item count badge (when not active) */}
+                  {periodArtifactCount > 0 && !isActive && (
+                    <span className="text-[9px] px-1.5 py-0.2 bg-[#EDE4D5] rounded-full text-charcoal-soft mt-1 opacity-80 group-hover:opacity-100">
                       {periodArtifactCount}
                     </span>
-                  )
-                )}
-              </button>
-            )
-          })}
+                  )}
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
 
