@@ -1,63 +1,100 @@
-import { ArrowDown, Sparkles } from 'lucide-react'
-
 interface Props {
   onExplore: () => void
 }
 
 export default function Hero({ onExplore }: Props) {
   return (
-    <section className="relative overflow-hidden bg-charcoal text-parchment-light">
-      {/* Layered background texture */}
-      <div className="absolute inset-0 bg-noise pointer-events-none" />
-      <div
-        className="absolute -right-40 -top-40 w-[560px] h-[560px] rounded-full opacity-[0.16] pointer-events-none"
-        style={{
-          background:
-            'repeating-radial-gradient(circle at center, #D7B45F 0px, #D7B45F 2px, transparent 2px, transparent 34px)',
-        }}
-      />
-      <div
-        className="absolute -left-32 bottom-0 w-[420px] h-[420px] rounded-full opacity-[0.12] pointer-events-none"
-        style={{
-          background:
-            'repeating-radial-gradient(circle at center, #D98052 0px, #D98052 2px, transparent 2px, transparent 28px)',
-        }}
-      />
+    <section className="relative overflow-hidden bg-[#181513] text-ivory border-b border-[#332B25]">
+      {/* Subtle Paper Noise Overlay */}
+      <div className="absolute inset-0 bg-noise pointer-events-none opacity-40 z-10" />
 
-      <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-24 pb-20 md:pt-32 md:pb-28">
-        <div className="flex items-center gap-3 mb-5">
-          <span className="font-display text-xs md:text-sm tracking-widest text-gold-light/90 uppercase inline-flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-gold" />
-            Interactive Digital Humanities Archive · 30,000 BCE to Contemporary
+      {/* Understated Museum Artifact Collage in Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none opacity-20">
+        <div className="absolute right-0 top-0 w-full h-full flex justify-end items-center gap-4 pr-0 sm:pr-8 translate-x-12 sm:translate-x-0">
+          {/* Collage Item 1: Dancing Girl */}
+          <div className="w-40 sm:w-56 md:w-64 aspect-[3/4] rounded-sm overflow-hidden border border-gold/20 shadow-2xl rotate-[-4deg] opacity-60">
+            <img
+              src="/images/dancing-girl.jpg"
+              alt="Dancing Girl of Mohenjo-daro"
+              className="w-full h-full object-cover grayscale contrast-125 mix-blend-luminosity"
+            />
+          </div>
+          {/* Collage Item 2: Ajanta Padmapani */}
+          <div className="w-48 sm:w-64 md:w-72 aspect-[3/4] rounded-sm overflow-hidden border border-gold/30 shadow-2xl translate-y-6 rotate-[2deg] opacity-75">
+            <img
+              src="/images/ajanta.jpg"
+              alt="Ajanta Cave Murals"
+              className="w-full h-full object-cover sepia-[0.3] contrast-115 mix-blend-luminosity"
+            />
+          </div>
+          {/* Collage Item 3: Chola Nataraja */}
+          <div className="hidden md:block w-60 aspect-[3/4] rounded-sm overflow-hidden border border-gold/20 shadow-2xl -translate-y-8 rotate-[-2deg] opacity-60">
+            <img
+              src="/images/nataraja.jpg"
+              alt="Chola Nataraja Bronze"
+              className="w-full h-full object-cover grayscale contrast-125 mix-blend-luminosity"
+            />
+          </div>
+          {/* Collage Item 4: Mughal Miniature */}
+          <div className="hidden lg:block w-56 aspect-[3/4] rounded-sm overflow-hidden border border-gold/20 shadow-2xl translate-y-12 rotate-[5deg] opacity-50">
+            <img
+              src="/images/mughal-miniature.jpg"
+              alt="Mughal Court Miniature"
+              className="w-full h-full object-cover contrast-110 mix-blend-luminosity"
+            />
+          </div>
+        </div>
+        {/* Soft Vignette Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#181513] via-[#181513]/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#181513] via-transparent to-[#181513]/60" />
+      </div>
+
+      {/* Main Content Area */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 pt-28 pb-24 md:pt-36 md:pb-32">
+        {/* Museum Curatorial Subtitle */}
+        <div className="flex items-center gap-3 mb-6">
+          <span className="w-8 h-px bg-gold/60" />
+          <span className="font-body text-xs uppercase tracking-[0.25em] text-gold font-medium">
+            Interactive Digital Art History Exhibition · CLA-I CO1
           </span>
         </div>
 
-        <h1 className="font-display font-semibold text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl text-balance max-w-3xl">
-          Indian Art Through Time
+        {/* Exhibition Headline */}
+        <h1 className="font-display font-light text-5xl sm:text-7xl md:text-8xl tracking-wide text-ivory leading-[0.95] max-w-3xl">
+          INDIAN ART
+          <br />
+          <span className="font-normal italic text-gold-light">THROUGH TIME</span>
         </h1>
 
-        <p className="font-body text-lg md:text-xl text-parchment/80 mt-7 max-w-2xl leading-relaxed">
-          From prehistoric mineral pigments on Vindhya rock shelters and meditative Indus Valley bronze
-          to transcendent Gupta Buddhas, soaring Chola vimanas, Mughal imperial miniatures, and living tribal traditions.
-          Explore the unbroken aesthetic continuities of the Indian subcontinent.
+        {/* Curatorial Subtitle */}
+        <p className="font-body text-base sm:text-lg md:text-xl text-[#C8BFB5] mt-7 max-w-2xl leading-relaxed font-light">
+          Explore thousands of years of Indian artistic expression through the objects, places and traditions that shaped its visual history.
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
+        {/* Action and Metrics */}
+        <div className="mt-10 flex flex-wrap items-center gap-6">
           <button
             onClick={onExplore}
-            className="group inline-flex items-center gap-2.5 bg-terracotta hover:bg-terracotta-dark text-parchment-light font-body font-medium text-base px-7 py-3.5 rounded-sm shadow-md hover:shadow-xl transition-all duration-200"
+            className="group inline-flex items-center gap-3 px-6 py-3.5 border border-gold/50 hover:border-gold bg-[#241F1C]/90 hover:bg-terracotta text-ivory font-body text-xs uppercase tracking-[0.2em] font-medium transition-all duration-300 shadow-sm"
           >
-            Explore Masterworks
-            <ArrowDown className="w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
+            <span>EXPLORE THE TIMELINE</span>
+            <span className="text-gold-light group-hover:text-ivory transition-transform duration-300 group-hover:translate-y-1">
+              ↓
+            </span>
           </button>
 
-          <span className="font-body text-sm text-parchment/80 bg-charcoal/60 px-3.5 py-2 rounded border border-white/15 backdrop-blur-md shadow-sm">
-            40 Masterworks · 8 Epochs · 6 Geographic Regions
-          </span>
+          <div className="flex items-center gap-4 text-xs font-body text-[#9E948A] border-l border-[#3D352F] pl-5">
+            <span>40 Masterworks</span>
+            <span className="w-1 h-1 rounded-full bg-gold/50" />
+            <span>8 Historical Epochs</span>
+            <span className="w-1 h-1 rounded-full bg-gold/50" />
+            <span>Multilateral Traditions</span>
+          </div>
         </div>
       </div>
 
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      {/* Fine Archival Hairline Divider */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
     </section>
   )
 }

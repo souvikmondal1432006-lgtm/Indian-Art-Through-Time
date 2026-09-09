@@ -4,11 +4,13 @@ import StatsSection from './components/StatsSection'
 import FilterControls, { FilterState } from './components/FilterControls'
 import TimelineSection from './components/TimelineSection'
 import ArtifactModal from './components/ArtifactModal'
-import CompareEras from './components/CompareEras'
+import CompareArtworks from './components/CompareArtworks'
+import ArtisticThreads from './components/ArtisticThreads'
 import Footer from './components/Footer'
 import { artifacts } from './data/artifacts'
 import { periods } from './data/periods'
 import { Artifact } from './types'
+
 const initialFilters: FilterState = {
   query: '',
   periodId: null,
@@ -19,18 +21,10 @@ const initialFilters: FilterState = {
 export default function App() {
   const [filters, setFilters] = useState<FilterState>(initialFilters)
   const [openArtifactId, setOpenArtifactId] = useState<string | null>(null)
+  const [compareTarget, setCompareTarget] = useState<Artifact | null>(null)
 
   const handleSelectEra = (id: string | null) => {
-    setFilters((f) => {
-      if (id && f.region) {
-        // If current region has no items in this new era, gracefully clear region
-        const hasMatches = artifacts.some((a) => a.periodId === id && a.region === f.region)
-        if (!hasMatches) {
-          return { ...f, periodId: id, region: null }
-        }
-      }
-      return { ...f, periodId: id }
-    })
+    setFilters((f) => ({ ...f, periodId: id }))
   }
 
   const filteredArtifacts = useMemo(() => {
@@ -44,10 +38,13 @@ export default function App() {
           a.name,
           a.region,
           a.artForm,
+          a.traditionTrack,
+          a.thematicThread,
           a.medium,
+          a.technique,
           a.dateRange,
-          a.historicalContext,
-          a.culturalSignificance,
+          a.shortDescription,
+          a.institutionalSource,
           periods.find((p) => p.id === a.periodId)?.name ?? '',
         ]
           .join(' ')
@@ -58,29 +55,12 @@ export default function App() {
     })
   }, [filters])
 
-  // Ordered flat list, matching the visual order used in TimelineSection
+  // Ordered flat list chronologically
   const orderedList = useMemo(() => {
-    const list: Artifact[] = []
-    for (const period of periods) {
-      for (const a of filteredArtifacts) {
-        if (a.periodId === period.id) list.push(a)
-      }
-    }
-    return list
+    return [...filteredArtifacts].sort((a, b) => a.sortYear - b.sortYear)
   }, [filteredArtifacts])
 
-  const artifactsByPeriod = useMemo(() => {
-    const map = new Map<string, Artifact[]>()
-    for (const period of periods) {
-      map.set(
-        period.id,
-        filteredArtifacts.filter((a) => a.periodId === period.id)
-      )
-    }
-    return map
-  }, [filteredArtifacts])
-
-  const openArtifact = orderedList.find((a) => a.id === openArtifactId) ?? null
+  const openArtifact = orderedList.find((a) => a.id === openArtifactId) ?? artifacts.find((a) => a.id === openArtifactId) ?? null
   const openIndex = openArtifact ? orderedList.indexOf(openArtifact) : -1
 
   const scrollToTimeline = () => {
@@ -93,23 +73,41 @@ export default function App() {
     setOpenArtifactId(orderedList[nextIndex].id)
   }
 
+  const handleCompareFromModal = (art: Artifact) => {
+    setCompareTarget(art)
+    setTimeout(() => {
+      document.getElementById('compare')?.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
+  }
+
   return (
-    <div className="min-h-screen bg-[#F7F2E9] relative selection:bg-terracotta/30 text-charcoal">
+    <div className="min-h-screen bg-[#FAF6EF] relative selection:bg-terracotta/20 text-charcoal">
       <Hero onExplore={scrollToTimeline} />
       <StatsSection />
+
       <FilterControls
         filters={filters}
         onChange={setFilters}
         resultCount={filteredArtifacts.length}
       />
+
       <TimelineSection
         periods={periods}
-        artifactsByPeriod={artifactsByPeriod}
+        allFilteredArtifacts={orderedList}
         activePeriodId={filters.periodId}
         onSelectEra={handleSelectEra}
         onOpenArtifact={(a) => setOpenArtifactId(a.id)}
       />
-      <CompareEras />
+
+      {/* Artistic Threads - 4 Thematic Continuities */}
+      <ArtisticThreads onOpenArtifact={(a) => setOpenArtifactId(a.id)} />
+
+      {/* Compare Two Artworks - Comparative Matrix */}
+      <CompareArtworks
+        initialArtifactA={compareTarget}
+        onOpenArtifact={(a) => setOpenArtifactId(a.id)}
+      />
+
       <Footer />
 
       {openArtifact && (
@@ -118,8 +116,10 @@ export default function App() {
           onClose={() => setOpenArtifactId(null)}
           onPrev={() => gotoRelative(-1)}
           onNext={() => gotoRelative(1)}
+          onCompare={handleCompareFromModal}
         />
       )}
     </div>
   )
 }
+

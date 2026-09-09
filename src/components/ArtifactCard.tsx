@@ -1,74 +1,82 @@
 import { Artifact } from '../types'
 import { periodById } from '../data/periods'
 import ImageWithFallback from './ImageWithFallback'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 interface Props {
   artifact: Artifact
   onOpen: () => void
+  isCompactHorizontal?: boolean
 }
 
-export default function ArtifactCard({ artifact, onOpen }: Props) {
+export default function ArtifactCard({ artifact, onOpen, isCompactHorizontal }: Props) {
   const period = periodById(artifact.periodId)
 
   return (
-    <div
+    <article
       onClick={onOpen}
-      className="group cursor-pointer bg-[#FDFBF7] border border-[#DED3C4] hover:border-gold/80 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 flex flex-col w-full"
+      className={`group cursor-pointer bg-[#FDFBF7] border border-[#E2D8C6] hover:border-gold/80 rounded-sm overflow-hidden shadow-subtle hover:shadow-card transition-all duration-300 flex flex-col ${
+        isCompactHorizontal ? 'w-[290px] shrink-0' : 'w-full'
+      }`}
     >
-      {/* Clean Artwork Image Frame */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#1E1916] flex items-center justify-center">
+      {/* Thumbnail Artwork Frame */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-[#161311] flex items-center justify-center border-b border-[#EADFCF]">
         <ImageWithFallback
           src={artifact.image}
           alt={artifact.imageAlt}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        {/* Subtle Region & Era Pill */}
-        <div className="absolute top-2.5 left-2.5 pointer-events-none">
-          <span className="bg-charcoal/80 text-gold-light text-[11px] font-display font-medium px-2 py-0.5 rounded backdrop-blur-md border border-gold/20">
-            {period?.shortLabel}
+        {/* Editorial Catalog Number Overlay */}
+        <div className="absolute top-2.5 left-2.5">
+          <span className="font-display text-xs font-semibold px-2 py-0.5 bg-[#1C1917]/85 text-gold-light border border-gold/30 tracking-wider">
+            {artifact.catalogNumber}
           </span>
         </div>
 
-        {/* Clean Hover Cue */}
-        <div className="absolute bottom-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <span className="bg-charcoal/90 text-gold-light text-xs font-display px-2.5 py-1 rounded backdrop-blur-md inline-flex items-center gap-1 border border-gold/30">
-            View
-            <ArrowUpRight className="w-3 h-3 text-gold" />
+        {/* Tradition Track Badge */}
+        <div className="absolute top-2.5 right-2.5">
+          <span className="font-body text-[10px] uppercase tracking-wider px-2 py-0.5 bg-[#FAF6EF]/90 text-charcoal-soft font-medium backdrop-blur-sm border border-[#D5C9B3]">
+            {artifact.traditionTrack}
           </span>
         </div>
       </div>
 
-      {/* Clean, Uncluttered Card Body */}
+      {/* Card Content */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
-          {/* Region Subheading */}
-          <div className="text-[11px] uppercase tracking-wider text-terracotta font-medium mb-1 font-body">
-            {artifact.region}
+          {/* Date & Period */}
+          <div className="flex items-center justify-between gap-2 mb-1.5 text-xs font-body">
+            <span className="font-medium text-terracotta tracking-wide">
+              {artifact.dateRange}
+            </span>
+            <span className="text-[11px] text-charcoal-muted tracking-normal truncate max-w-[120px]">
+              {period?.shortLabel}
+            </span>
           </div>
 
-          {/* Masterwork Name */}
-          <h3 className="font-display font-semibold text-lg text-charcoal leading-snug group-hover:text-terracotta transition-colors line-clamp-1">
+          {/* Artifact Title */}
+          <h3 className="font-display font-medium text-lg text-charcoal group-hover:text-terracotta transition-colors leading-snug line-clamp-1">
             {artifact.name}
           </h3>
 
-          {/* Medium / Materials */}
-          <p className="mt-1.5 text-xs text-charcoal-soft/75 font-body line-clamp-1 italic">
-            {artifact.medium}
+          {/* One-Sentence Description */}
+          <p className="mt-2 text-xs text-charcoal-soft leading-relaxed line-clamp-2 font-body font-light">
+            {artifact.shortDescription}
           </p>
         </div>
 
-        {/* Clean Bottom Metadata Line */}
-        <div className="mt-3 pt-2.5 border-t border-charcoal/10 flex items-center justify-between text-xs font-body">
-          <span className="text-charcoal-soft/80 font-medium">
-            {artifact.dateRange}
+        {/* Bottom Explore Button */}
+        <div className="mt-3.5 pt-2.5 border-t border-[#EAE1D1] flex items-center justify-between">
+          <span className="text-[11px] text-charcoal-muted font-body">
+            {artifact.region}
           </span>
-          <span className="text-[11px] px-2 py-0.5 rounded bg-parchment-dark/50 text-charcoal-soft font-medium">
-            {artifact.artForm}
+          <span className="inline-flex items-center gap-1.5 text-xs font-body uppercase tracking-wider text-terracotta group-hover:text-terracotta-dark font-medium transition-colors">
+            <span>EXPLORE</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1 text-gold" />
           </span>
         </div>
       </div>
-    </div>
+    </article>
   )
 }

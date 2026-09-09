@@ -42,21 +42,51 @@ export interface Period {
   developments: string[]
 }
 
+export type TraditionTrack =
+  | 'Sculpture'
+  | 'Painting'
+  | 'Architecture'
+  | 'Folk / Regional'
+  | 'Textile / Craft'
+
+export type ThematicThread =
+  | 'Devotion'
+  | 'Nature'
+  | 'Power'
+  | 'Everyday Life'
+
+export interface ComparisonInfo {
+  purpose: string
+  themes: string[]
+  visualLanguage: string
+}
+
 export interface Artifact {
   id: string
+  catalogNumber: string
   name: string
   periodId: PeriodId
   dateRange: string
   sortYear: number
   region: Region
   artForm: ArtForm
+  traditionTrack: TraditionTrack
+  thematicThread: ThematicThread
   medium: string
+  technique: string
+  institutionalSource: string
   image: string
   imageAlt: string
   imageAttribution: string
-  historicalContext: string
-  culturalSignificance: string
-  visualCharacteristics: string
-  importance: string
+  shortDescription: string
+  story: string[]
+  whyItMatters: string
+  didYouKnow: string
+  comparisonData: ComparisonInfo
+  // Legacy / fallback fields
+  historicalContext?: string
+  culturalSignificance?: string
+  visualCharacteristics?: string
+  importance?: string
   relatedTraditions: string[]
 }

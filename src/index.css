@@ -7,30 +7,29 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-parchment text-charcoal font-body antialiased;
-    background-color: #F7F2E9;
+    @apply bg-ivory text-charcoal font-body antialiased;
+    background-color: #FAF6EF;
+    color: #1C1917;
   }
   ::selection {
-    @apply bg-terracotta/30 text-charcoal;
+    @apply bg-terracotta/20 text-charcoal;
   }
   :focus-visible {
-    outline: 2px solid #B4592F;
+    outline: 2px solid #A4422A;
     outline-offset: 2px;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: 'Fraunces', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-optical-sizing: auto;
   }
-  .lotus-divider {
-    background-image: radial-gradient(circle, #B4862C 1.5px, transparent 1.5px);
-    background-size: 14px 14px;
+  .font-body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   }
-  .paisley-corner {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23B4862C' stroke-width='1' opacity='0.35'%3E%3Cpath d='M20 180 C 20 100, 100 100, 100 20 C 100 90, 160 90, 180 20'/%3E%3Ccircle cx='100' cy='100' r='6'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+  .archival-border {
+    border-color: #E7DEC8;
   }
   .text-balance {
     text-wrap: balance;
@@ -48,14 +47,22 @@
   }
 }
 
-/* Custom scrollbar for the horizontal timeline rail */
-.timeline-rail::-webkit-scrollbar {
+/* Custom scrollbar for horizontal timeline rails */
+.timeline-rail::-webkit-scrollbar,
+.horizontal-timeline-scroll::-webkit-scrollbar {
   height: 6px;
 }
-.timeline-rail::-webkit-scrollbar-track {
-  background: transparent;
+.timeline-rail::-webkit-scrollbar-track,
+.horizontal-timeline-scroll::-webkit-scrollbar-track {
+  background: rgba(231, 222, 200, 0.4);
+  border-radius: 9999px;
 }
-.timeline-rail::-webkit-scrollbar-thumb {
-  background-color: #C9A65B;
-  border-radius: 8px;
+.timeline-rail::-webkit-scrollbar-thumb,
+.horizontal-timeline-scroll::-webkit-scrollbar-thumb {
+  background-color: #B88A36;
+  border-radius: 9999px;
+}
+.timeline-rail::-webkit-scrollbar-thumb:hover,
+.horizontal-timeline-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #A4422A;
 }

@@ -1,53 +1,74 @@
 export default function Footer() {
   return (
-    <footer className="bg-charcoal text-parchment/80">
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 grid md:grid-cols-3 gap-10">
+    <footer className="bg-[#141210] text-[#D0C7BC] border-t border-[#29231E]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Col 1: Exhibition Colophon */}
         <div>
-          <h3 className="font-display text-lg text-parchment-light mb-3">
-            Indian Art Through Time
+          <h3 className="font-display font-medium text-xl text-ivory tracking-wide mb-2">
+            INDIAN ART THROUGH TIME
           </h3>
-          <p className="font-body text-sm leading-relaxed text-parchment/60">
-            Interactive Digital Humanities Project
-            <br />
-            Created for CLA-I · CO1 — Interactive Timeline with Artifacts
+          <p className="font-body text-xs uppercase tracking-[0.18em] text-gold-light mb-4">
+            Interactive Digital Art History Exhibition
+          </p>
+          <div className="inline-block px-3 py-1 border border-gold/30 bg-[#1D1916] text-[11px] font-body text-ivory tracking-wider mb-4">
+            CLA-I · CO1 — Interactive Timeline with Artifacts
+          </div>
+          <p className="font-body text-xs text-[#998E82] leading-relaxed font-light">
+            An academic digital humanities exhibition documenting 30,000 years of South Asian visual history across overlapping traditions, materials, and regional schools.
           </p>
         </div>
 
+        {/* Col 2: Institutional Sources & References */}
         <div>
-          <h4 className="font-body text-xs uppercase tracking-wider text-gold-light mb-3">
+          <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold font-medium mb-4">
             Sources & References
           </h4>
-          <ul className="font-body text-sm text-parchment/60 space-y-1.5 leading-relaxed">
-            <li>Archaeological Survey of India (ASI) — site and monument records</li>
-            <li>UNESCO World Heritage List — Sanchi, Ajanta, Ellora, Konark, Khajuraho</li>
-            <li>National Museum, New Delhi — Indus Valley and Mauryan collections</li>
-            <li>Victoria and Albert Museum — South Asian miniature painting collection</li>
-            <li>Wikimedia Commons — public domain and openly licensed photography</li>
+          <ul className="font-body text-xs text-[#B8AEA3] space-y-2 leading-relaxed font-light">
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>Archaeological Survey of India (ASI) — Excavation & Monument Archives</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>UNESCO World Heritage Centre — South Asian Monument Inscriptions</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>National Museum, New Delhi — Harappan, Mauryan & Bronze Galleries</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>Victoria and Albert Museum, London — South Asian Miniature Manuscripts</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>National Gallery of Modern Art (NGMA) — Modern Masters Collection</span>
+            </li>
           </ul>
         </div>
 
+        {/* Col 3: Image Credits & Scholarly Dating */}
         <div>
-          <h4 className="font-body text-xs uppercase tracking-wider text-gold-light mb-3">
-            Credits & Image Attribution
+          <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold font-medium mb-4">
+            Image Credits & Scholarly Notes
           </h4>
-          <p className="font-body text-sm text-parchment/60 leading-relaxed">
-            Historical and pre-modern artifact photographs are sourced from Wikimedia
-            Commons under public domain or open licences; individual credits appear in
-            each artifact's detail panel. Works by artists who died within the last 60
-            years, and all contemporary artworks, are intentionally not reproduced here
-            because they remain under copyright — those entries show a placeholder
-            instead of an image.
+          <p className="font-body text-xs text-[#B8AEA3] leading-relaxed font-light mb-3">
+            Historical artifact photographs are sourced from public domain museum holdings and open cultural archives (Wikimedia Commons, National Museum, ASI).
+          </p>
+          <p className="font-body text-[11px] text-[#8C8176] leading-relaxed font-light">
+            In accordance with art-historical standards, approximate dates are designated with "c." (circa) where exact chronology is unrecorded by epigraphy. Traditions are presented as simultaneous and regional rather than unilinear.
           </p>
         </div>
       </div>
 
-      <div className="border-t border-parchment/10">
-        <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 font-body text-xs text-parchment/40">
-          Built with React, TypeScript and Tailwind CSS. Content is provided for
-          educational purposes; approximate dates are marked "c." (circa) where exact
-          dating is not established by inscription or record.
+      {/* Bottom Bar */}
+      <div className="border-t border-[#241F1A] py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-body text-[#786E64]">
+          <span>© Digital Humanities Exhibition · Built with React & TypeScript</span>
+          <span className="italic">Designed for University Art History Curatorial Presentation</span>
         </div>
       </div>
     </footer>
   )
 }
+
