@@ -10,6 +10,7 @@ import Footer from './components/Footer'
 import { artifacts } from './data/artifacts'
 import { periods } from './data/periods'
 import { Artifact } from './types'
+import { matchesRegion, matchesArtForm } from './utils/filterHelpers'
 
 const initialFilters: FilterState = {
   query: '',
@@ -31,8 +32,8 @@ export default function App() {
     const q = filters.query.trim().toLowerCase()
     return artifacts.filter((a) => {
       if (filters.periodId && a.periodId !== filters.periodId) return false
-      if (filters.region && a.region !== filters.region) return false
-      if (filters.artForm && a.artForm !== filters.artForm) return false
+      if (!matchesRegion(a, filters.region)) return false
+      if (!matchesArtForm(a, filters.artForm)) return false
       if (q) {
         const haystack = [
           a.name,
@@ -113,6 +114,8 @@ export default function App() {
       {openArtifact && (
         <ArtifactModal
           artifact={openArtifact}
+          currentIndex={openIndex >= 0 ? openIndex + 1 : 1}
+          totalCount={orderedList.length > 0 ? orderedList.length : artifacts.length}
           onClose={() => setOpenArtifactId(null)}
           onPrev={() => gotoRelative(-1)}
           onNext={() => gotoRelative(1)}
@@ -122,4 +125,3 @@ export default function App() {
     </div>
   )
 }
-

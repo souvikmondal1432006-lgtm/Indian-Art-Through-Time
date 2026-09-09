@@ -69,6 +69,7 @@ export interface Artifact {
   dateRange: string
   sortYear: number
   region: Region
+  specificLocation?: string
   artForm: ArtForm
   traditionTrack: TraditionTrack
   thematicThread: ThematicThread

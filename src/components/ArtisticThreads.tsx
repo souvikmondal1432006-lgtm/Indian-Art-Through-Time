@@ -80,8 +80,8 @@ export default function ArtisticThreads({ onOpenArtifact }: Props) {
         <h2 className="font-display text-3xl sm:text-4xl text-charcoal font-normal">
           Artistic Threads
         </h2>
-        <p className="font-body text-sm text-charcoal-muted mt-2 max-w-2xl font-light">
-          Indian art history does not replace itself in isolated silos; core spiritual, ecological, and human themes recur continuously across millennia.
+        <p className="font-body text-base text-charcoal-muted mt-2 max-w-2xl font-light italic">
+          "Across centuries, certain ideas continue to reappear in Indian visual culture."
         </p>
       </div>
 

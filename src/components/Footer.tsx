@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#141210] text-[#D0C7BC] border-t border-[#29231E]">
+    <footer id="sources" className="bg-[#141210] text-[#D0C7BC] border-t border-[#29231E]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Col 1: Exhibition Colophon */}
         <div>
@@ -18,19 +18,15 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Col 2: Institutional Sources & References */}
+        {/* Col 2: Institutional Sources & Curatorial References */}
         <div>
           <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold font-medium mb-4">
-            Sources & References
+            Sources & Institutional Archives
           </h4>
           <ul className="font-body text-xs text-[#B8AEA3] space-y-2 leading-relaxed font-light">
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
-              <span>Archaeological Survey of India (ASI) — Excavation & Monument Archives</span>
-            </li>
-            <li className="flex items-baseline gap-2">
-              <span className="text-terracotta">·</span>
-              <span>UNESCO World Heritage Centre — South Asian Monument Inscriptions</span>
+              <span>Archaeological Survey of India (ASI) — Monument & Excavation Records</span>
             </li>
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
@@ -38,11 +34,19 @@ export default function Footer() {
             </li>
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
-              <span>Victoria and Albert Museum, London — South Asian Miniature Manuscripts</span>
+              <span>UNESCO World Heritage Centre — South Asian Monument Inscriptions</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>Ministry of Culture, Government of India — Cultural Repository</span>
             </li>
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
               <span>National Gallery of Modern Art (NGMA) — Modern Masters Collection</span>
+            </li>
+            <li className="flex items-baseline gap-2">
+              <span className="text-terracotta">·</span>
+              <span>Victoria and Albert Museum, London — South Asian Manuscripts & Textiles</span>
             </li>
           </ul>
         </div>
@@ -53,7 +57,7 @@ export default function Footer() {
             Image Credits & Scholarly Notes
           </h4>
           <p className="font-body text-xs text-[#B8AEA3] leading-relaxed font-light mb-3">
-            Historical artifact photographs are sourced from public domain museum holdings and open cultural archives (Wikimedia Commons, National Museum, ASI).
+            Historical artifact photographs are sourced from accredited public domain museum holdings and open cultural archives (Wikimedia Commons, National Museum New Delhi, Archaeological Survey of India).
           </p>
           <p className="font-body text-[11px] text-[#8C8176] leading-relaxed font-light">
             In accordance with art-historical standards, approximate dates are designated with "c." (circa) where exact chronology is unrecorded by epigraphy. Traditions are presented as simultaneous and regional rather than unilinear.
@@ -64,11 +68,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-[#241F1A] py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-body text-[#786E64]">
-          <span>© Digital Humanities Exhibition · Built with React & TypeScript</span>
-          <span className="italic">Designed for University Art History Curatorial Presentation</span>
+          <span>© Digital Humanities Exhibition · Built with React, Vite & TypeScript</span>
+          <span className="italic">Curated for University Art History Academic Assessment</span>
         </div>
       </div>
     </footer>
   )
 }
-
