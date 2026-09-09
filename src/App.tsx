@@ -6,8 +6,6 @@ import TimelineSection from './components/TimelineSection'
 import ArtifactModal from './components/ArtifactModal'
 import CompareEras from './components/CompareEras'
 import Footer from './components/Footer'
-import MedievalIntro from './components/MedievalIntro'
-import SacredGoldCanvas from './components/SacredGoldCanvas'
 import { artifacts } from './data/artifacts'
 import { periods } from './data/periods'
 import { Artifact } from './types'
@@ -22,7 +20,6 @@ const initialFilters: FilterState = {
 }
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState<boolean>(true)
   const [soundActive, setSoundActive] = useState<boolean>(true)
   const [filters, setFilters] = useState<FilterState>(initialFilters)
   const [openArtifactId, setOpenArtifactId] = useState<string | null>(null)
@@ -32,16 +29,6 @@ export default function App() {
     setSoundActive(next)
     sounds.enabled = next
     if (next) sounds.playTempleBell(528)
-  }
-
-  const handleEnterFromIntro = (periodId?: string) => {
-    setShowIntro(false)
-    if (periodId) {
-      setFilters((f) => ({ ...f, periodId, region: null }))
-      setTimeout(() => {
-        document.getElementById(`era-${periodId}`)?.scrollIntoView({ behavior: 'smooth' })
-      }, 200)
-    }
   }
 
   const handleSelectEra = (id: string | null) => {
@@ -119,25 +106,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F7F2E9] relative selection:bg-terracotta/30 text-charcoal">
-      {/* Sacred Gold Dust & Lotus Bloom Canvas Interaction System */}
-      <SacredGoldCanvas />
-
-      {/* Medieval Opening Gate Animation (shown on open, dismissible, reopenable) */}
-      {showIntro && <MedievalIntro onEnter={handleEnterFromIntro} />}
-
-      {/* Floating Audio Control Button */}
+      {/* Floating Audio Control Button with Glassmorphism */}
       <button
         onClick={toggleSound}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-charcoal/95 text-gold-light border border-gold/40 shadow-2xl backdrop-blur hover:bg-charcoal hover:scale-105 active:scale-95 transition-all"
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-charcoal/90 text-gold-light border border-gold/40 shadow-xl backdrop-blur-md hover:bg-charcoal transition-all"
         title={soundActive ? 'Mute Temple Chimes' : 'Enable Authentic Chimes'}
       >
-        {soundActive ? <Volume2 className="w-4 h-4 text-gold animate-pulse" /> : <VolumeX className="w-4 h-4 text-parchment/60" />}
+        {soundActive ? <Volume2 className="w-4 h-4 text-gold" /> : <VolumeX className="w-4 h-4 text-parchment/60" />}
         <span className="text-xs font-display hidden sm:inline">
           {soundActive ? 'Temple Chimes ON' : 'Chimes Muted'}
         </span>
       </button>
 
-      <Hero onExplore={scrollToTimeline} onReopenIntro={() => setShowIntro(true)} />
+      <Hero onExplore={scrollToTimeline} />
       <StatsSection />
       <FilterControls
         filters={filters}

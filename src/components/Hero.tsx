@@ -1,15 +1,14 @@
-import { ArrowDown, Compass, Sparkles } from 'lucide-react'
+import { ArrowDown, Sparkles } from 'lucide-react'
 import { sounds } from '../utils/audioChimes'
 
 interface Props {
   onExplore: () => void
-  onReopenIntro: () => void
 }
 
-export default function Hero({ onExplore, onReopenIntro }: Props) {
+export default function Hero({ onExplore }: Props) {
   return (
     <section className="relative overflow-hidden bg-charcoal text-parchment-light">
-      {/* Ornamental layered background: mandala rings + lotus-dot texture + noise */}
+      {/* Layered background texture */}
       <div className="absolute inset-0 bg-noise pointer-events-none" />
       <div
         className="absolute -right-40 -top-40 w-[560px] h-[560px] rounded-full opacity-[0.16] pointer-events-none"
@@ -29,8 +28,8 @@ export default function Hero({ onExplore, onReopenIntro }: Props) {
       <div className="relative max-w-6xl mx-auto px-6 md:px-10 pt-24 pb-20 md:pt-32 md:pb-28">
         <div className="flex items-center gap-3 mb-5">
           <span className="font-display text-xs md:text-sm tracking-widest text-gold-light/90 uppercase inline-flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-gold animate-pulse" />
-            Interactive Digital Humanities Archive · 10,000 BCE to Contemporary
+            <Sparkles className="w-4 h-4 text-gold" />
+            Interactive Digital Humanities Archive · 30,000 BCE to Contemporary
           </span>
         </div>
 
@@ -50,25 +49,14 @@ export default function Hero({ onExplore, onReopenIntro }: Props) {
               sounds.playTempleBell(528)
               onExplore()
             }}
-            className="group inline-flex items-center gap-2.5 bg-terracotta hover:bg-terracotta-dark text-parchment-light font-body font-medium text-base px-7 py-3.5 rounded-sm shadow-lift hover:shadow-2xl transition-all duration-200"
+            className="group inline-flex items-center gap-2.5 bg-terracotta hover:bg-terracotta-dark text-parchment-light font-body font-medium text-base px-7 py-3.5 rounded-sm shadow-md hover:shadow-xl transition-all duration-200"
           >
             Explore Masterworks
             <ArrowDown className="w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5" />
           </button>
 
-          <button
-            onClick={() => {
-              sounds.playRoyalGong()
-              onReopenIntro()
-            }}
-            className="group inline-flex items-center gap-2.5 bg-charcoal/80 hover:bg-gold/20 border border-gold/40 text-gold-light font-display text-sm px-5 py-3 rounded-sm transition-colors duration-200"
-          >
-            <Compass className="w-4 h-4 text-gold group-hover:rotate-45 transition-transform duration-300" />
-            Enter Royal Gateway
-          </button>
-
-          <span className="font-body text-sm text-parchment/70 bg-charcoal/60 px-3 py-1.5 rounded border border-white/10">
-            34 Masterworks · 8 Epochs · 6 Regions
+          <span className="font-body text-sm text-parchment/80 bg-charcoal/60 px-3.5 py-2 rounded border border-white/15 backdrop-blur-md shadow-sm">
+            40 Masterworks · 8 Epochs · 6 Geographic Regions
           </span>
         </div>
       </div>
