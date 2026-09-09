@@ -1,9 +1,8 @@
 # Indian Art Through Time — Interactive Timeline
 
-An interactive digital timeline built for the "Interactive Timeline with Artifacts"
-assignment (CLA-I, CO1). It presents 22 artifacts across 8 major periods of Indian
-art history, each with a detailed clickable panel, plus search, era/region/art-form
-filters, an era comparison tool, and rotating "Did you know?" facts.
+An interactive digital timeline and museum exhibition documenting 40 masterworks
+across 8 major periods of Indian art history, each with a detailed catalogue panel,
+plus search, era/region/art-form filters, comparative analysis tools, and thematic continuities.
 
 ## Tech stack
 

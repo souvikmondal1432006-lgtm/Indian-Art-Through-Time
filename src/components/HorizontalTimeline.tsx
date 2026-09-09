@@ -305,12 +305,12 @@ export default function HorizontalTimeline({
           /* OVERLAPPING TRADITIONS MODE: Parallel Concurrent Tracks      */
           /* ============================================================ */
           <div>
-            {/* Academic Curatorial Callout */}
+            {/* Curatorial Framework Callout */}
             <div className="mb-6 p-4 bg-[#F5EDE1] border-l-2 border-gold text-xs font-body text-charcoal-soft flex items-start gap-3">
               <Info className="w-4 h-4 text-gold shrink-0 mt-0.5" />
               <div className="leading-relaxed">
                 <strong className="text-charcoal font-medium uppercase tracking-wider block mb-0.5">
-                  Academic Framework · Concurrent Traditions
+                  Curatorial Framework · Concurrent Traditions
                 </strong>
                 Indian art history did not move in a single linear succession where one period replaced the other.
                 Sculptural metallurgy, cave frescoes, temple architecture, and community folk arts developed

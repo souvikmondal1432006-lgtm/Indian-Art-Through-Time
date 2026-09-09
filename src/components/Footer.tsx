@@ -7,18 +7,22 @@ export default function Footer() {
           <h3 className="font-display font-medium text-xl text-ivory tracking-wide mb-2">
             INDIAN ART THROUGH TIME
           </h3>
-          <p className="font-body text-xs uppercase tracking-[0.18em] text-gold-light mb-4">
-            Interactive Digital Art History Exhibition
+          <p className="font-body text-xs text-[#C5BCB1] mb-3 leading-relaxed">
+            A visual journey across centuries of Indian artistic expression.
           </p>
-          <div className="inline-block px-3 py-1 border border-gold/30 bg-[#1D1916] text-[11px] font-body text-ivory tracking-wider mb-4">
-            CLA-I · CO1 — Interactive Timeline with Artifacts
+          <div className="inline-flex items-center gap-2 text-[11px] font-body text-gold-light tracking-widest uppercase mb-4">
+            <span>Explore</span>
+            <span>·</span>
+            <span>Discover</span>
+            <span>·</span>
+            <span>Compare</span>
           </div>
           <p className="font-body text-xs text-[#998E82] leading-relaxed font-light">
-            An academic digital humanities exhibition documenting 30,000 years of South Asian visual history across overlapping traditions, materials, and regional schools.
+            A public digital museum and cultural heritage archive documenting 30,000 years of South Asian visual history across overlapping traditions, materials, and regional schools.
           </p>
         </div>
 
-        {/* Col 2: Institutional Sources & Curatorial References */}
+        {/* Col 2: Institutional Sources & Curatorial Archives */}
         <div>
           <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold font-medium mb-4">
             Sources & Institutional Archives
@@ -38,7 +42,7 @@ export default function Footer() {
             </li>
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
-              <span>Ministry of Culture, Government of India — Cultural Repository</span>
+              <span>Ministry of Culture, Government of India — Cultural Heritage Repository</span>
             </li>
             <li className="flex items-baseline gap-2">
               <span className="text-terracotta">·</span>
@@ -68,8 +72,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-[#241F1A] py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-body text-[#786E64]">
-          <span>© Digital Humanities Exhibition · Built with React, Vite & TypeScript</span>
-          <span className="italic">Curated for University Art History Academic Assessment</span>
+          <span>© Indian Art Through Time</span>
+          <a href="#sources" className="hover:text-gold transition-colors font-medium">
+            Sources & Image Credits
+          </a>
         </div>
       </div>
     </footer>

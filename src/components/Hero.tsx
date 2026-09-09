@@ -55,11 +55,11 @@ export default function Hero({ onExplore }: Props) {
 
       {/* Main Content Area */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 pt-28 pb-24 md:pt-36 md:pb-32">
-        {/* Museum Curatorial Subtitle */}
+        {/* Curatorial Header */}
         <div className="flex items-center gap-3 mb-6">
           <span className="w-8 h-px bg-gold/60" />
           <span className="font-body text-xs uppercase tracking-[0.25em] text-gold font-medium">
-            Interactive Digital Museum Exhibition · CLA-I CO1
+            AN INTERACTIVE JOURNEY THROUGH INDIAN ART
           </span>
         </div>
 
